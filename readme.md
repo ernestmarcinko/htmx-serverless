@@ -18,10 +18,10 @@ It is really simple:
 <!-- htmx  -->
 <script src="https://unpkg.com/htmx.org"></script>
 <!-- serverless extension -->
-<script src="https://unpkg.com/htmx-serverless@latest/dist/htmx-serverless.js"></script>
+<script src="https://unpkg.com/htmx-serverless"></script>
 ```
 
-Then use the window.htmxServerless to set custom handlers and responses.
+Then use the `window.htmxServerless` global to set custom handlers and responses.
 
 ```javascript
 // Requests to "/handler" are replaced with "<div>Custom HTML</div>"
