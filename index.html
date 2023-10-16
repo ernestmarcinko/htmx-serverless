@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="dist/index.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Buttons</h1>
+    <p>
+        <label> Button 1
+            <button hx-get="/clicked" hx-swap="outerHTML" hx-ext="serverless">
+                Click!
+            </button>
+        </label>
+    </p>
+    <p>
+        <label> Button 2
+            <button hx-get="/clicked" hx-swap="outerHTML" hx-ext="serverless">
+                Click!
+            </button>
+        </label>
+    </p>
+    <script defer>
+        htmxServerless.handlers.set('/clicked', '<button hx-post="/clicked2" hx-swap="outerHTML" hx-ext="serverless">Click again!</button>')
+        htmxServerless.handlers.set('/clicked2', '<button hx-post="/clicked" hx-swap="outerHTML" hx-ext="serverless">Click!</button>')
+    </script>
+</body>
+</html>
