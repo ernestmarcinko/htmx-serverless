@@ -1,17 +1,22 @@
 import htmx from "htmx.org";
+import { HtmxExtension } from "./types";
 
 type path = string;
 type HTML = string;
 
-export default class htmxServerless {
+export default class Serverless {
     handlers: Map<path, HTML>;
 
-    constructor( h: typeof htmx ) {
+    constructor(h?: typeof htmx) {
         this.handlers = new Map();
-        h.defineExtension('serverless', {
+        this.init(h);
+    }
+
+    init(h?: typeof htmx) {
+        h?.defineExtension('serverless', {
             onEvent: this.onEvent.bind(this),
             transformResponse: this.transformResponse.bind(this)
-        });
+        } as HtmxExtension);
     }
 
     onEvent(name: string, evt: any) {

@@ -1,3 +1,6 @@
+import Serverless from "./Serverless";
+import htmx from "htmx.org";
+
 export interface HtmxExtension {
     onEvent?: (name: string, evt: CustomEvent) => any;
     transformResponse?: (text: any, xhr: XMLHttpRequest, elt: any) => any;
@@ -11,4 +14,11 @@ declare module "htmx.org" {
   type HtmxExtensions = {
     "serverless": HtmxExtension;
   };
+}
+
+declare global {
+  interface Window {
+    htmxServerless: Serverless;
+    htmx: typeof htmx;
+  }
 }

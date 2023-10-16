@@ -1,6 +1,6 @@
-import htmx from "htmx.org";
-import htmxServerless from "./Serverless";
+import Serverless from "./Serverless";
 
-var serverless = new htmxServerless(htmx);
+const serverless = new Serverless(window.htmx);
+window.htmxServerless = serverless;
 
 export default serverless;
