@@ -7,9 +7,9 @@ type HTML = string;
 export default class Serverless {
     handlers: Map<path, HTML>;
 
-    constructor(h?: typeof htmx) {
+    constructor() {
         this.handlers = new Map();
-        this.init(h);
+        this.init(window?.htmx);
     }
 
     init(h?: typeof htmx) {

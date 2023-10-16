@@ -34,6 +34,9 @@ htmxServerless.handlers.set('/handler', '<div>Custom HTML</div>');
 import htmx from "htmx.org";
 import htmxServerless from "htmx-serverless";
 
+// Initialize on your local htmx
+htmxServerless.init(htmx);
+
 // Requests to "/handler" are replaced with "<div>Custom HTML</div>"
 htmxServerless.handlers.set('/handler', '<div>Custom HTML</div>');
 ```
