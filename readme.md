@@ -18,7 +18,7 @@ It is really simple:
 <!-- htmx  -->
 <script src="https://unpkg.com/htmx.org"></script>
 <!-- serverless extension -->
-<script src="https://unpkg.com/htmx-serverless"></script>
+<script src="https://unpkg.com/htmx-serverless@latest/dist/htmx-serverless.js"></script>
 ```
 
 Then use the window.htmxServerless to set custom handlers and responses.
