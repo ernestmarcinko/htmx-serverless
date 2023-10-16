@@ -1,6 +1,6 @@
 {
   "name": "htmx-serverless",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HTMX serverless XHR requests",
   "main": "dist/index.js",
   "scripts": {
@@ -12,6 +12,11 @@
     "type": "git",
     "url": "git+https://github.com/ernestmarcinko/htmx-serverless.git"
   },
+  "files": [
+    "dist",
+    "index.html",
+    "readme.md"
+],
   "keywords": [
       "htmx without server",
       "htmx",
