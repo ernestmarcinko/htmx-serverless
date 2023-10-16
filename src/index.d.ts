@@ -1,3 +1,3 @@
 import Serverless from "./Serverless";
-declare const serverless: Serverless;
-export default serverless;
+declare const htmxServerless: Serverless;
+export default htmxServerless;

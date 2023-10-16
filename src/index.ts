@@ -1,6 +1,6 @@
 import Serverless from "./Serverless";
 
-const serverless = new Serverless(window.htmx);
-window.htmxServerless = serverless;
+const htmxServerless = new Serverless(window.htmx);
+window.htmxServerless = htmxServerless;
 
-export default serverless;
+export default htmxServerless;

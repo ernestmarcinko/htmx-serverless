@@ -6,6 +6,12 @@ const config: Array<Configuration> = [
   {
     entry: './src/index.ts',
     output: {
+        library: {
+            name: 'htmxServerless',
+            type: 'umd',
+            export: 'default',
+            umdNamedDefine: true
+        },
         globalObject: 'window',
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',

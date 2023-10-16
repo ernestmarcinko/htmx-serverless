@@ -12,7 +12,6 @@
       "sourceMap": true, // Generate source maps for better debugging
       "strict": true, // Enable strict type checking
       "esModuleInterop": true, // Enable interoperability with CommonJS modules
-      "moduleResolution": "node", // Use Node.js-style module resolution
       "allowSyntheticDefaultImports": true // Allow importing modules with default imports from modules with named exports
     },
     "include": ["src"], 
