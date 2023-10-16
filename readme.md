@@ -1,6 +1,6 @@
 # HTMX Serverless requests ![npm](https://img.shields.io/npm/v/htmx-serverless) ![npm](https://img.shields.io/npm/dy/htmx-serverless) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-To use HTMX you require some some sort of a back-end server to handle the XHR requests and responses. In some cases however it is nice to have only a client side interaction, **without a back-end server**.
+To use HTMX you require a back-end server to handle the XHR requests and responses. In some cases it is nice to have only a client side interaction, **without a back-end server**.
 
 This extension uses the HTMX built-in Events to intercept some XHR requests before they fire and define response texts on the client side. No need for mock or "fake" server scripts. It is **HTMX without a server** (sort of).
 
@@ -18,7 +18,7 @@ It is really simple:
 <!-- htmx  -->
 <script src="https://unpkg.com/htmx.org"></script>
 <!-- serverless extension -->
-<script src="https://unpkg.com/htmx-serverless" defer></script>
+<script src="https://unpkg.com/htmx-serverless"></script>
 ```
 
 Then use the window.htmxServerless to set custom handlers and responses.

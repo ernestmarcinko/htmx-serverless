@@ -1,15 +1,30 @@
 {
   "name": "htmx-serverless",
   "version": "0.1.0",
-  "description": "",
+  "description": "HTMX serverless XHR requests",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:prod": "webpack --config webpack.config.ts --node-env=production",
     "build:dev": "webpack --config webpack.config.ts --mode=development --watch"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ernestmarcinko/htmx-serverless.git"
+  },
+  "keywords": [
+      "htmx without server",
+      "htmx",
+      "serverless",
+      "htmx no server",
+      "dom",
+      "htmx extension", "htmx plugin", "html"
+  ],
+  "author": "Ernest Marcinko",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ernestmarcinko/htmx-serverless/issues"
+  },
   "dependencies": {
     "htmx.org": "^1.9.6"
   },
