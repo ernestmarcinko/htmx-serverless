@@ -23,9 +23,51 @@
             </button>
         </label>
     </p>
-    <script defer>
+    <p>
+        <!-- FORM POST -->
+        <form hx-post="/submitmail" hx-ext="serverless">
+            <label> Email
+                <input type="text" name="email_address">
+            </label>
+            <label> Button 2
+                <button type="submit">Go!</button>
+            </label>
+        </form>
+
+        <!-- FORM GET -->
+        <form hx-get="/submitmail" hx-ext="serverless">
+            <label> Email
+                <input type="text" name="email_address">
+            </label>
+            <label> Button 2
+                <button type="submit">Go!</button>
+            </label>
+        </form>
+    </p>
+
+    <span class="counter"></span>
+    <button hx-get="/example" hx-target="previous .counter" hx-trigger="load, click" hx-vals='js:{myVal: i++}' hx-ext="serverless">Click to Increment</button>
+    
+
+    <script>
         htmxServerless.handlers.set('/clicked', '<button hx-post="/clicked2" hx-swap="outerHTML" hx-ext="serverless">Click again!</button>')
-        htmxServerless.handlers.set('/clicked2', '<button hx-post="/clicked" hx-swap="outerHTML" hx-ext="serverless">Click!</button>')
+        htmxServerless.handlers.set('/clicked2', '<button hx-post="/clicked" hx-swap="outerHTML" hx-ext="serverless">Click!</button>');
+
+        // Form
+        htmxServerless.handlers.set('/submitmail', function(text, params, xhr){
+            if ( params?.email_address != 'test@test.com' ) {
+                return this.outerHTML;
+            } else {
+                return "Thanks!"
+            }
+        });
+
+        // DIV
+        let i = 0;
+        htmxServerless.handlers.set('/example', function(text, params, xhr){
+            let status = params?.myVal < 10 ? "smaller" : "bigger";
+            return `Value of "i" is: ${i}, it is ${status} than 10. Click to increment!`;
+        });
     </script>
 </body>
 </html>

@@ -1,14 +1,10 @@
 import htmx from "htmx.org";
-type path = string;
-type HTML = string;
+import { path, ServerlessHandler, XHRServerless, HtmxElement } from "./types";
 export default class Serverless {
-    handlers: Map<path, HTML>;
+    handlers: Map<path, ServerlessHandler>;
     constructor();
     init(h?: typeof htmx): void;
     onEvent(name: string, evt: any): void;
-    transformResponse(text: string, xhr: XMLHttpRequest, elt: Element & {
-        'htmx-internal-data'?: any;
-    }): string | undefined;
+    transformResponse(text: string, xhr: XHRServerless, elt: HtmxElement): string;
     shouldIntercept(path: string | undefined): boolean;
 }
-export {};

@@ -1,11 +1,8 @@
-import htmx from "htmx.org";
-import { HtmxExtension } from "./types";
-
-type path = string;
-type HTML = string;
+import  htmx from "htmx.org";
+import { path, params, HtmxExtension, ServerlessHandler, XHRServerless, HtmxElement } from "./types";
 
 export default class Serverless {
-    handlers: Map<path, HTML>;
+    handlers: Map<path, ServerlessHandler>;
 
     constructor() {
         this.handlers = new Map();
@@ -20,33 +17,46 @@ export default class Serverless {
     }
 
     onEvent(name: string, evt: any) {
+        const path:path = evt?.detail?.elt?.['htmx-internal-data']?.path;
+        const params:params = evt.detail?.requestConfig?.parameters;
+
         if ( 
             typeof evt.detail.xhr !== 'undefined' && 
-            this.shouldIntercept(evt?.detail?.elt?.['htmx-internal-data']?.path) 
+            this.shouldIntercept(path) 
         ) {
             if ( name === "htmx:beforeSend" ) {
-                const xhr = evt.detail.xhr;
+                const xhr:XHRServerless = evt.detail.xhr;
+                xhr.serverless = {
+                    'params': params,
+                    'path': path
+                };
                 xhr.send = () => {
                     xhr.dispatchEvent(new Event('loadstart'));
                     xhr.dispatchEvent(new Event('load'));
                     xhr.dispatchEvent(new Event('loadend'));
                     xhr.readyState == XMLHttpRequest.DONE
                 };
-            } else if ( name === "htmx:beforeSwap" ) {
                 evt.detail.shouldSwap = true;
             }
         }
     }
 
-    transformResponse(text: string, xhr: XMLHttpRequest, elt:Element & {'htmx-internal-data'?: any}) {
-        if ( this.shouldIntercept(elt?.['htmx-internal-data']?.path) ) {
-            return this.handlers.get(elt?.['htmx-internal-data']?.path)
+    transformResponse(text: string, xhr: XHRServerless, elt:HtmxElement) {
+        const path:path = xhr?.serverless?.path ?? '';
+        const params:params = xhr.serverless?.params;
+
+        if ( this.shouldIntercept(path) ) {
+            const handler = this.handlers.get(path) as ServerlessHandler;
+            if ( typeof handler === 'function' ) {
+                return handler.call(elt, text, params, xhr);
+            } else {
+                return handler;
+            }
         }
         return text;
     }
 
     shouldIntercept(path:string|undefined) {
-        path = path ?? '';
-        return this.handlers.has(path);
+        return this.handlers.has( path ?? '');
     }
 }

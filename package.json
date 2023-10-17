@@ -1,6 +1,6 @@
 {
   "name": "htmx-serverless",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "HTMX serverless XHR requests",
   "main": "dist/index.js",
   "scripts": {

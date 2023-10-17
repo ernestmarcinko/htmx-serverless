@@ -9,6 +9,26 @@ export interface HtmxExtension {
     encodeParameters?: (xhr: XMLHttpRequest, parameters: any, elt: any) => any;
 }
 
+export type path = string;
+export type params = {
+  [key: string]: any
+};
+
+export type HtmxElement = Element & {'htmx-internal-data'?: any}
+
+export type XHRParams = {
+  params: params,
+  path: path
+}
+export type XHRServerless = XMLHttpRequest & {
+  serverless: XHRParams;
+}
+
+type ServerlessHandlerFunc = 
+  (this: HtmxElement, text?: string, params?: any , xhr?: XMLHttpRequest) => string
+
+export type ServerlessHandler = ServerlessHandlerFunc|string;
+
 declare module "htmx.org" {
   function defineExtension(name: string, ext: HtmxExtension): void;
   type HtmxExtensions = {
