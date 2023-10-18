@@ -6,5 +6,6 @@ export default class Serverless {
     init(h?: typeof htmx): void;
     onEvent(name: string, evt: any): void;
     transformResponse(text: string, xhr: XHRServerless, elt: HtmxElement): string;
+    parseHandlers(path: string | undefined): void;
     shouldIntercept(path: string | undefined): boolean;
 }

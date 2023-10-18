@@ -1,7 +1,7 @@
 {
   "name": "htmx-serverless",
-  "version": "0.1.6",
-  "description": "HTMX serverless XHR requests",
+  "version": "0.1.7",
+  "description": "HTMX Serverless XHR requests. A frontend tool to define custom client states without mock XHR server.",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

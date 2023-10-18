@@ -19,6 +19,7 @@ export default class Serverless {
     onEvent(name: string, evt: any) {
         const path:path = evt?.detail?.elt?.['htmx-internal-data']?.path;
         const params:params = evt.detail?.requestConfig?.parameters;
+        name === "htmx:beforeSend" && this.parseHandlers(path);
 
         if ( 
             typeof evt.detail.xhr !== 'undefined' && 
@@ -56,7 +57,17 @@ export default class Serverless {
         return text;
     }
 
+    parseHandlers(path:string|undefined) {
+        path =  path ?? '';
+        if ( !this.handlers.has(path) && path.startsWith('js:') ) {
+            const handler = path.replace(/js:|\(\)/g, '').trim();
+            if ( handler !== '' ) {
+                this.handlers.set(path, Function("return ("+ handler +")")());
+            }
+        } 
+    }
+
     shouldIntercept(path:string|undefined) {
-        return this.handlers.has( path ?? '');
+        return this.handlers.has(path ?? '');
     }
 }

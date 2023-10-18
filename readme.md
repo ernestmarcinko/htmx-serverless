@@ -26,6 +26,11 @@ htmxServerless.handlers.set('/handler2', function(text, params, xhr){
     console.log(this, text, params, xhr);
     return "<p>Okay!</p>";
 });
+
+// Directly within the hx-{request} attribute, return value of myFunc is the replacement
+<button hx-get="js:myFunc" hx-swap="outerHTML" hx-ext="serverless">
+    Click to replace via myFunc!
+</button>
 ```
 
 ### In custom bundles
@@ -64,18 +69,18 @@ The button is then replaced with the HTML defined without triggering a request t
 
 [Try this example here.](https://jsfiddle.net/ernestmarcinko/h0rj5pez/1/)
 
-### Handler as a Function
+### Handler as a Function set excplicitly
 
 Tha handler function is a great tool for more complex conditional logic, like it would happen on the server side.
 Let's make a simple click based number increment handler:
 
 ```html
-<span class="counter"></span>
-<button hx-get="/example" 
-        hx-target="previous .counter" 
+<button hx-get="/count" 
+        hx-target="next .counter" 
         hx-trigger="load, click" 
         hx-vals='js:{myVal: i++}' 
         hx-ext="serverless">Click to Increment</button>
+<span class="counter"></span>
    
 ```
 
@@ -83,17 +88,43 @@ The handler only needs to print the text as "i" is incremented by hx-vals automa
 
 ```javascript
 let i = 0;
-htmxServerless.handlers.set('/example', function(text, params, xhr){
-    let status = params?.myVal < 10 ? "smaller" : "bigger";
-    return `Value of "i" is: ${i}, it is ${status} than 10`;
+htmxServerless.handlers.set('/count', function(text, params, xhr){
+    let status = params?.myVal < 10 ? "smaller or equals to" : "bigger than";
+    return `Value of "myVal" is: ${params?.myVal}, it is ${status} 10.`;
 });
 ```
 
-[Try this example here.](https://jsfiddle.net/ernestmarcinko/vzpawq0y/1/)
+[Try this example here.](https://jsfiddle.net/ernestmarcinko/fm4tu9q8/2/)
 
 Output:
 
 ![Alt text](img/auto-increment.png)
+
+### Handler as a Function via js:myFunc
+
+You can set the handler function implicitly in the hx-{get,post etc..} attribute via the js:myFunc syntax:
+
+```html
+<button hx-get="js:counter" 
+        hx-target="next .counter" 
+        hx-trigger="load, click" 
+        hx-vals='js:{myVal: i++}' 
+        hx-ext="serverless">Click to Increment</button>
+<span class="counter"></span>
+   
+```
+
+The handler function accepts the same arguments as before:
+
+```javascript
+let i = 0;
+function counter(text, params, xhr){
+    let status = params?.myVal < 10 ? "smaller or equals to" : "bigger than";
+    return `Value of "myVal" is: ${params?.myVal}, it is ${status} 10.`;
+}
+```
+
+[Try this example here.](https://jsfiddle.net/ernestmarcinko/x3kdownf/3/)
 
 ## Handler function
 
@@ -118,7 +149,6 @@ function handler(text, params, xhr){
     console.log(this, text, params, xhr);
     return 'Hi!';
 }
-htmxServerless.handlers.set('/example', handler);
 ```
 
 ## How does it work?

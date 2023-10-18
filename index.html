@@ -45,9 +45,14 @@
         </form>
     </p>
 
-    <span class="counter"></span>
-    <button hx-get="/example" hx-target="previous .counter" hx-trigger="load, click" hx-vals='js:{myVal: i++}' hx-ext="serverless">Click to Increment</button>
-    
+    <p>
+        <button hx-get="/example" hx-target="next .counter" hx-trigger="load, click" hx-vals='js:{myVal: i++}' hx-ext="serverless">Click to Increment</button>
+        <span class="counter"></span>
+    </p>
+    <p>
+        <button hx-get="js:myFunc" hx-target="next .counter" hx-trigger="load, click" hx-vals='js:{myVal: j++}' hx-ext="serverless">Click to Increment</button>
+        <span class="counter"></span> 
+    </p>
 
     <script>
         htmxServerless.handlers.set('/clicked', '<button hx-post="/clicked2" hx-swap="outerHTML" hx-ext="serverless">Click again!</button>')
@@ -65,9 +70,16 @@
         // DIV
         let i = 0;
         htmxServerless.handlers.set('/example', function(text, params, xhr){
-            let status = params?.myVal < 10 ? "smaller" : "bigger";
-            return `Value of "i" is: ${i}, it is ${status} than 10. Click to increment!`;
+            let status = params?.myVal < 10 ? "smaller or equals to" : "bigger than";
+            return `Value of "myVal" is: ${params?.myVal}, it is ${status} 10.`;
         });
+
+        // Custom hander with js:myFunc()
+        let j = 0;
+        function myFunc(text, params, xhr){
+            let status = params?.myVal < 10 ? "smaller or equals to" : "bigger than";
+            return `Value of "myVal" is: ${params?.myVal}, it is ${status} 10.`;
+        }
     </script>
 </body>
 </html>
